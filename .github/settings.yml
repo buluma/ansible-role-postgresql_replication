@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Ansible role to deploy postgresql software with replication
+  homepage: https://buluma.github.io/
+  topics: postgresql, dbms, database, postgres, replication, cluster, ansible, molecule, tox, playbook, hacktoberfest
