@@ -6,5 +6,5 @@
 
   roles:
     - role: buluma.bootstrap
-    - role: buluma.postgresql
+    # - role: buluma.postgresql
     - role: enix.postgresql
