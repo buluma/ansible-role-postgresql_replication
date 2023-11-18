@@ -1,4 +1,4 @@
-# [postgresql_replication](#postgresql_replication)
+# [Ansible role postgresql_replication](#postgresql_replication)
 
 Ansible role to deploy postgresql software with replication
 
