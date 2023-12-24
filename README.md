@@ -73,8 +73,8 @@ The following roles are used to prepare a system. You can prepare your system in
 
 | Requirement | GitHub | Version |
 |-------------|--------|--------|
-|[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-bootstrap.svg)](https://github.com/shadowwalker/ansible-role-bootstrap)|
-|[enix.postgresql](https://galaxy.ansible.com/buluma/enix.postgresql)|[![Build Status GitHub](https://github.com/buluma/enix.postgresql/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/enix.postgresql/actions)|[![Version](https://img.shields.io/github/release/buluma/enix.postgresql.svg)](https://github.com/shadowwalker/enix.postgresql)|
+|[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Ansible Molecule](https://github.com/buluma/ansible-role-bootstrap/actions/workflows/molecule.yml/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions/workflows/molecule.yml)|[![Version](https://img.shields.io/github/release/buluma/ansible-role-bootstrap.svg)](https://github.com/shadowwalker/ansible-role-bootstrap)|
+|[enix.postgresql](https://galaxy.ansible.com/buluma/enix.postgresql)|[![Ansible Molecule](https://github.com/buluma/enix.postgresql/actions/workflows/molecule.yml/badge.svg)](https://github.com/buluma/enix.postgresql/actions/workflows/molecule.yml)|[![Version](https://img.shields.io/github/release/buluma/enix.postgresql.svg)](https://github.com/shadowwalker/enix.postgresql)|
 
 ## [Dependencies](#dependencies)
 
