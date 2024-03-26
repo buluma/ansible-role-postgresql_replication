@@ -2,9 +2,9 @@
 # handlers file for postgresql_replication
 
 # - name: restart $service
-#   sudo: yes
+#   sudo: true
 #   service: name=$service state=restarted
 
 # - name: reload $service
-#   sudo: yes
+#   sudo: true
 #   service: name=$service state=reloaded
