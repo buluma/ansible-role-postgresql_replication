@@ -76,12 +76,6 @@ The following roles are used to prepare a system. You can prepare your system in
 |[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|[![Build Status GitLab](https://gitlab.com/shadowwalker/ansible-role-bootstrap/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/ansible-role-bootstrap)|
 |[enix.postgresql](https://galaxy.ansible.com/buluma/enix.postgresql)|[![Build Status GitHub](https://github.com/buluma/enix.postgresql/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/enix.postgresql/actions)|[![Build Status GitLab](https://gitlab.com/shadowwalker/enix.postgresql/badges/master/pipeline.svg)](https://gitlab.com/shadowwalker/enix.postgresql)|
 
-## [Dependencies](#dependencies)
-
-Most roles require some kind of preparation, this is done in `molecule/default/prepare.yml`. This role has a "hard" dependency on the following roles:
-
-- enix.postgresql
-
 ## [Context](#context)
 
 This role is part of many compatible roles. Have a look at [the documentation of these roles](https://buluma.github.io/) for further information.
