@@ -1,0 +1,11 @@
+digraph PhiloDilemma {
+  label = "Michael Buluma" ;
+  overlap=false
+  {
+    "postgresql_replication" [fillcolor=yellow style=filled penwidth=3]
+    "buluma.bootstrap" [fillcolor=green style=filled]
+    "enix.postgresql" [fillcolor=green style=filled]
+  }
+  "postgresql_replication" -> "buluma.bootstrap"
+  "postgresql_replication" -> "enix.postgresql"
+}
