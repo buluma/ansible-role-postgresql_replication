@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   author: 'Michael Buluma'
+  namespace: buluma
   role_name: postgresql_replication
   description: 'Ansible role to deploy postgresql software with replication'
   license: Apache-2.0
