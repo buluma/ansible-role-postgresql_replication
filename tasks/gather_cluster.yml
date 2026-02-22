@@ -1,5 +1,4 @@
 ---
-
 # force a setup on other cluster nodes,
 # This is needed later to get cluster nodes informations
 - name: Gather facts from other nodes

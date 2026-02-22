@@ -1,5 +1,4 @@
 ---
-
 # checking parameters.
 - name: "Checking {{ postgresql_replication__group }} members"
   ansible.builtin.assert:

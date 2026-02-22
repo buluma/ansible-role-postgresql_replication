@@ -1,5 +1,4 @@
 ---
-
 - name: "Generate {{ postgresql__user }} ssh key"
   ansible.builtin.user:
     name: "{{ postgresql__user }}"
@@ -28,7 +27,7 @@
     dest: "~{{ postgresql__user }}/.ssh/config"
     owner: "{{ postgresql__user }}"
     group: "{{ postgresql__user }}"
-    mode: 0644
+    mode: "0644"
     backup: true
 
 - name: "Deploy {{ postgresql__user }} .pgpass"
@@ -37,5 +36,5 @@
     dest: "~{{ postgresql__user }}/.pgpass"
     owner: "{{ postgresql__user }}"
     group: "{{ postgresql__user }}"
-    mode: 0400
+    mode: "0400"
     backup: true

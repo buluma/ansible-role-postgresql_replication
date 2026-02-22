@@ -1,5 +1,4 @@
 ---
-
 - name: "Debian: Install rsync package"
   ansible.builtin.apt:
     name: rsync
