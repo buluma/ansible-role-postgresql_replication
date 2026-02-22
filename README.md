@@ -11,29 +11,24 @@ Ansible role to deploy postgresql software with replication
 This example is taken from [`molecule/default/converge.yml`](https://github.com/buluma/ansible-role-postgresql_replication/blob/master/molecule/default/converge.yml) and is tested on each push, pull request and release.
 
 ```yaml
----
-- name: Converge
-  hosts: all
-  become: true
+- become: true
   gather_facts: true
-
+  hosts: all
+  name: Converge
   roles:
-    - role: buluma.postgresql_replication
+  - role: buluma.postgresql_replication
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/buluma/ansible-role-postgresql_replication/blob/master/molecule/default/prepare.yml):
 
 ```yaml
----
-- name: Prepare
-  hosts: all
-  become: true
+- become: true
   gather_facts: false
-
+  hosts: all
+  name: Prepare
   roles:
-    - role: buluma.bootstrap
-    # - role: buluma.postgresql
-    - role: enix.postgresql
+  - role: buluma.bootstrap
+  - role: enix.postgresql
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -43,24 +38,15 @@ Also see a [full explanation and example](https://buluma.github.io/how-to-use-th
 The default values for the variables are set in [`defaults/main.yml`](https://github.com/buluma/ansible-role-postgresql_replication/blob/master/defaults/main.yml):
 
 ```yaml
----
-# defaults file for postgresql_replication
-
-postgresql_replication__group: "postgresql"
-postgresql_replication__group_master: "postgresql_master"
-postgresql_replication__group_replicas: "postgresql_replicas"
-
-postgresql_replication__user: "replicate"
-postgresql_replication__password: "replicate"
-
-postgresql_replication__waldir: "/var/lib/postgresql/wal-slave/"
-postgresql_replication__walsenders: 3
+postgresql_replication__group: postgresql
+postgresql_replication__group_master: postgresql_master
+postgresql_replication__group_replicas: postgresql_replicas
+postgresql_replication__password: replicate
+postgresql_replication__trigger_file: /tmp/MasterNow
+postgresql_replication__user: replicate
+postgresql_replication__waldir: /var/lib/postgresql/wal-slave/
 postgresql_replication__walsegments: 64
-
-# !!! set this to 'yesiwant' to bootstrap cluster
-# postgresql_replication__bootstrap undefined
-
-postgresql_replication__trigger_file: "/tmp/MasterNow"
+postgresql_replication__walsenders: 3
 ```
 
 ## [Requirements](#requirements)

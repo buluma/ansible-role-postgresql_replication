@@ -1,19 +1,6 @@
----
-
-# Quick-provisioning playbook
-# ---------------------------
-
-# A Simple, straight playbook for quick remote installations.
-# You will be asked which hosts to provision before-hand.
-
-
-- name: 'postgresql_replication'
-
+- hosts: ''
+  name: postgresql_replication
+  roles:
+  - .
   vars_prompt:
     selected_hosts: Specify the hosts to provision
-
-  hosts: ""
-
-
-  roles:
-    - '.'    # The current directory itself is the role
