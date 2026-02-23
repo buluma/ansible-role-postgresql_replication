@@ -1,6 +1,6 @@
 ---
 collections:
-  - name: ansible.posix
+- name: ansible.posix
 roles:
-  - name: buluma.bootstrap
-  - name: enix.postgresql
+- name: buluma.bootstrap
+- name: enix.postgresql
