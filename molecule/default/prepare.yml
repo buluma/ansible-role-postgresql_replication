@@ -1,10 +1,7 @@
----
-- name: Prepare
-  hosts: all
-  become: true
+- become: true
   gather_facts: false
-
+  hosts: all
+  name: Prepare
   roles:
-    - role: buluma.bootstrap
-    # - role: buluma.postgresql
-    - role: enix.postgresql
+  - role: buluma.bootstrap
+  - role: enix.postgresql

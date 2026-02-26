@@ -1,19 +1,9 @@
 ---
+dependencies: []
 galaxy_info:
-  role_name: postgresql_replication
   author: Michael Buluma
-  namespace: buluma
-  description: Ansible role to deploy postgresql software with replication
   company: ShadowNet
-  license: Apache-2.0
-
-  min_ansible_version: 2.10
-
-  platforms:
-    - name: Debian
-      versions:
-        - all
-
+  description: Ansible role to deploy postgresql software with replication
   galaxy_tags:
     - postgresql
     - dbms
@@ -21,7 +11,11 @@ galaxy_info:
     - postgres
     - replication
     - cluster
-
-dependencies:
-  - enix.postgresql
-  # - buluma.postgresql
+  license: Apache-2.0
+  min_ansible_version: "2.1"
+  namespace: buluma
+  platforms:
+    - name: Debian
+      versions:
+        - all
+  role_name: postgresql_replication

@@ -1,16 +1,14 @@
 ---
-
-- name: "Setup recovery.conf"
+- name: Setup recovery.conf
   ansible.builtin.template:
-    src: recovery.conf.j2
-    dest: "{{ postgresql__data_dir }}/recovery.conf"
-    owner: "{{ postgresql__user }}"
-    group: "{{ postgresql__user }}"
-    mode: 0644
     backup: true
+    dest: "{{ postgresql__data_dir }}/recovery.conf"
+    group: "{{ postgresql__user }}"
+    mode: "0644"
+    owner: "{{ postgresql__user }}"
+    src: recovery.conf.j2
   notify: restart postgresql
-
-- name: "Starting PostgreSQL server"
+- name: Starting PostgreSQL server
   ansible.builtin.service:
     name: postgresql
     state: started
