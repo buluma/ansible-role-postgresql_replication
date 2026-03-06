@@ -4,42 +4,42 @@
   hosts: all
   name: Verify
   roles:
-  - postgres_databases:
-    - name: test_db
-      state: present
-    postgres_hba_entries:
-    - database: all
-      method: peer
-      type: local
-      user: all
-    - address: 127.0.0.1/32
-      database: all
-      method: ident
-      type: host
-      user: all
-    - address: ::1/128
-      database: all
-      method: ident
-      type: host
-      user: all
-    - database: replication
-      method: peer
-      type: local
-      user: all
-    - address: 127.0.0.1/32
-      database: replication
-      method: ident
-      type: host
-      user: all
-    - address: ::1/128
-      database: replication
-      method: ident
-      type: host
-      user: all
-    postgres_users:
-    - name: test_user_with_pass
-      password: MyCoMpLeXpAsSwOrD
-    - db: test_db
-      name: test_user_with_db
-      password: MyCoMpLeXpAsSwOrD
-    role: buluma.postgres
+    - postgres_databases:
+        - name: test_db
+          state: present
+      postgres_hba_entries:
+        - database: all
+          method: peer
+          type: local
+          user: all
+        - address: 127.0.0.1/32
+          database: all
+          method: ident
+          type: host
+          user: all
+        - address: ::1/128
+          database: all
+          method: ident
+          type: host
+          user: all
+        - database: replication
+          method: peer
+          type: local
+          user: all
+        - address: 127.0.0.1/32
+          database: replication
+          method: ident
+          type: host
+          user: all
+        - address: ::1/128
+          database: replication
+          method: ident
+          type: host
+          user: all
+      postgres_users:
+        - name: test_user_with_pass
+          password: MyCoMpLeXpAsSwOrD
+        - db: test_db
+          name: test_user_with_db
+          password: MyCoMpLeXpAsSwOrD
+      role: buluma.postgres

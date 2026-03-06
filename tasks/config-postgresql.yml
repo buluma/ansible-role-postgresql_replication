@@ -1,12 +1,12 @@
 ---
-- name: Create WAL slave storage directory
+- name: config-postgresql | Create WAL slave storage directory
   ansible.builtin.file:
     dest: "{{ postgresql_replication__waldir }}"
     group: "{{ postgresql__user }}"
     mode: "0755"
     owner: "{{ postgresql__user }}"
     state: directory
-- name: Deploy replication.conf
+- name: config-postgresql | Deploy replication.conf
   ansible.builtin.template:
     backup: true
     dest: "{{ postgresql__config_path }}/conf.d/replication.conf"

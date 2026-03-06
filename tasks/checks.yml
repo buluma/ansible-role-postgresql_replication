@@ -1,17 +1,17 @@
 ---
-- name: Checking {{ postgresql_replication__group }} members
+- name: checks | Checking members for {{ postgresql_replication__group }}
   ansible.builtin.assert:
     msg: Only support 2 hosts clusters
     that:
       - '"{{ postgresql_replication__group }}" in groups'
       - "{{ groups[postgresql_replication__group] | length }} == 2"
-- name: Checking {{ postgresql_replication__group_master }} members
+- name: checks | Checking members for {{ postgresql_replication__group_master }}
   ansible.builtin.assert:
     msg: There must be only one master node
     that:
       - '"{{ postgresql_replication__group_master }}" in groups'
       - "{{ groups[postgresql_replication__group_master] | length }} == 1"
-- name: Checking {{ postgresql_replication__group_replicas }} members
+- name: checks | Checking members for {{ postgresql_replication__group_replicas }}
   ansible.builtin.assert:
     msg: Only support 1 replica server
     that:

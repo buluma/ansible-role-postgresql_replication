@@ -1,7 +1,7 @@
 ---
-- hosts: ''
+- hosts: ""
   name: postgresql_replication
   roles:
-  - .
+    - .
   vars_prompt:
     selected_hosts: Specify the hosts to provision

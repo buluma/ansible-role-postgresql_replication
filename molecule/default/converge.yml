@@ -4,4 +4,4 @@
   hosts: all
   name: Converge
   roles:
-  - role: buluma.postgresql_replication
+    - role: buluma.postgresql_replication

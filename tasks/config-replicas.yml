@@ -1,5 +1,5 @@
 ---
-- name: Setup recovery.conf
+- name: config-replicas | Setup recovery.conf
   ansible.builtin.template:
     backup: true
     dest: "{{ postgresql__data_dir }}/recovery.conf"
@@ -8,7 +8,7 @@
     owner: "{{ postgresql__user }}"
     src: recovery.conf.j2
   notify: restart postgresql
-- name: Starting PostgreSQL server
+- name: config-replicas | Starting PostgreSQL server
   ansible.builtin.service:
     name: postgresql
     state: started

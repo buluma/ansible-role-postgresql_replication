@@ -4,5 +4,5 @@
   hosts: all
   name: Prepare
   roles:
-  - role: buluma.bootstrap
-  - role: enix.postgresql
+    - role: buluma.bootstrap
+    - role: enix.postgresql

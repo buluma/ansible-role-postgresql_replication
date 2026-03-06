@@ -1,46 +1,46 @@
 ---
 - hosts: all
   tasks:
-  - apt:
-      name:
-      - gnupg
-      - locales
-      - rsync
-      state: present
-      update_cache: true
+    - apt:
+        name:
+          - gnupg
+          - locales
+          - rsync
+        state: present
+        update_cache: true
 - hosts: all
   roles:
-  - postgresql__global_config_options:
-    - option: listen_addresses
-      value: '*'
-    - option: log_min_duration_statement
-      value: 1000
-    postgresql__hba_entries:
-    - auth_method: peer
-      database: all
-      type: local
-      user: postgres
-    - auth_method: peer
-      database: all
-      type: local
-      user: all
-    - address: 0.0.0.0/0
-      auth_method: md5
-      database: all
-      type: host
-      user: all
-    - address: 0.0.0.0/0
-      auth_method: md5
-      database: replication
-      type: hostssl
-      user: '{{ postgresql_replication__user }}'
-    postgresql__users:
-    - name: '{{ postgresql_replication__user }}'
-      password: '{{ postgresql_replication__password }}'
-      role_attr_flags: REPLICATION
-    postgresql__version: 11
-    postgresql_replication__bootstrap: yesiwant
-    postgresql_replication__walsegments: 8
-    role: ../../.
+    - postgresql__global_config_options:
+        - option: listen_addresses
+          value: "*"
+        - option: log_min_duration_statement
+          value: 1000
+      postgresql__hba_entries:
+        - auth_method: peer
+          database: all
+          type: local
+          user: postgres
+        - auth_method: peer
+          database: all
+          type: local
+          user: all
+        - address: 0.0.0.0/0
+          auth_method: md5
+          database: all
+          type: host
+          user: all
+        - address: 0.0.0.0/0
+          auth_method: md5
+          database: replication
+          type: hostssl
+          user: "{{ postgresql_replication__user }}"
+      postgresql__users:
+        - name: "{{ postgresql_replication__user }}"
+          password: "{{ postgresql_replication__password }}"
+          role_attr_flags: REPLICATION
+      postgresql__version: 11
+      postgresql_replication__bootstrap: yesiwant
+      postgresql_replication__walsegments: 8
+      role: ../../.
   vars:
     postgresql_replication__password: r3pl1c6t0r

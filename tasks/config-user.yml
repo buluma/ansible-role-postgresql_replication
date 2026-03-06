@@ -1,5 +1,5 @@
 ---
-- name: Generate {{ postgresql__user }} ssh key
+- name: config-user | Generate ssh key for {{ postgresql__user }}
   ansible.builtin.user:
     generate_ssh_key: true
     name: "{{ postgresql__user }}"
@@ -7,10 +7,10 @@
     ssh_key_file: .ssh/id_rsa_wal
     state: present
   register: wal_ssh_user
-- name: setup user
+- name: config-user | Setup user
   ansible.builtin.debug:
     msg: "{{ wal_ssh_user }}"
-- name: Deploy {{ postgresql__user }} authorized_key
+- name: config-user | Deploy authorized_key for {{ postgresql__user }}
   ansible.posix.authorized_key:
     key: "{{ wal_ssh_user.ssh_public_key }}"
     key_options: from="{{ ansible_default_ipv4.address }}"
@@ -18,7 +18,7 @@
     user: "{{ postgresql__user }}"
   delegate_to: "{{ item }}"
   loop: "{{ postgresql_replication__other_nodes }}"
-- name: Deploy {{ postgresql__user }} ssh config
+- name: config-user | Deploy ssh config for {{ postgresql__user }}
   ansible.builtin.template:
     backup: true
     dest: ~{{ postgresql__user }}/.ssh/config
@@ -26,7 +26,7 @@
     mode: "0644"
     owner: "{{ postgresql__user }}"
     src: ssh-config.j2
-- name: Deploy {{ postgresql__user }} .pgpass
+- name: config-user | Deploy .pgpass for {{ postgresql__user }}
   ansible.builtin.template:
     backup: true
     dest: ~{{ postgresql__user }}/.pgpass
