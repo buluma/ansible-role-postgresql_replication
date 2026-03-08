@@ -7,7 +7,9 @@
     mode: "0644"
     owner: "{{ postgresql__user }}"
     src: recovery.conf.j2
-  notify: restart postgresql
+  notify:
+    - restart postgresql
+  # Separator for the pre-commit handler parser.
 - name: config-replicas | Starting PostgreSQL server
   ansible.builtin.service:
     name: postgresql
