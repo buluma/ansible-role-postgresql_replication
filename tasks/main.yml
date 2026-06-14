@@ -5,7 +5,7 @@
   ansible.builtin.include_tasks: gather_cluster.yml
 - name: Include install-debian tasks
   ansible.builtin.include_tasks: install-debian.yml
-  when: ansible_os_family == 'Debian'
+  when: ansible_facts.os_family == 'Debian'
 - name: Include config-user tasks
   ansible.builtin.include_tasks: config-user.yml
 - name: Include config-postgresql tasks

@@ -13,7 +13,7 @@
 - name: config-user | Deploy authorized_key for {{ postgresql__user }}
   ansible.posix.authorized_key:
     key: "{{ wal_ssh_user.ssh_public_key }}"
-    key_options: from="{{ ansible_default_ipv4.address }}"
+    key_options: from="{{ ansible_facts.default_ipv4.address }}"
     state: present
     user: "{{ postgresql__user }}"
   delegate_to: "{{ item }}"
