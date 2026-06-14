@@ -6,7 +6,7 @@ wal_keep_segments = {{ postgresql_replication__walsegments }} # in logfile segme
 
 archive_mode = on
 {% for host in postgresql_replication__other_nodes %}
-archive_command = 'rsync -a %p {{ postgresql__user }}@{{ hostvars[host].ansible_facts.default_ipv4.address }}:{{ postgresql_replication__waldir }}/%f'
+archive_command = 'rsync -a %p {{ postgresql__user }}@{{ hostvars[host].ansible_facts['default_ipv4'].address }}:{{ postgresql_replication__waldir }}/%f'
 {% endfor %}
 # placeholders: %p = path of file to archive
 #               %f = file name only
