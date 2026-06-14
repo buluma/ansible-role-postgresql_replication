@@ -1,5 +1,5 @@
 ---
-collections:
+collections: []
   - name: ansible.posix
 roles:
   - name: buluma.bootstrap
