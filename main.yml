@@ -4,4 +4,5 @@
   roles:
     - .
   vars_prompt:
-    selected_hosts: Specify the hosts to provision
+    - name: selected_hosts
+      prompt: Specify the hosts to provision
