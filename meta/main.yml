@@ -1,7 +1,7 @@
 ---
 dependencies: []
 galaxy_info:
-  author: Michael Buluma
+  author: buluma
   company: ShadowNet
   description: Ansible role to deploy postgresql software with replication
   galaxy_tags:
@@ -12,7 +12,7 @@ galaxy_info:
     - replication
     - cluster
   license: Apache-2.0
-  min_ansible_version: "2.1"
+  min_ansible_version: "2.12"
   namespace: buluma
   platforms:
     - name: Debian
