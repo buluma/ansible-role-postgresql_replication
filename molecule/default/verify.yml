@@ -1,9 +1,8 @@
 ---
-- become: true
-  gather_facts: true
 - name: Verify
   hosts: all
-  name: Verify
+  become: true
+  gather_facts: true
   roles:
     - postgres_databases:
         - name: test_db
