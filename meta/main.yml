@@ -14,5 +14,4 @@ galaxy_info:
   license: Apache-2.0
   min_ansible_version: "2.12"
   namespace: buluma
-  platforms:
   role_name: postgresql_replication
