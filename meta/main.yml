@@ -15,7 +15,4 @@ galaxy_info:
   min_ansible_version: "2.12"
   namespace: buluma
   platforms:
-    - name: Debian
-      versions:
-        - all
   role_name: postgresql_replication
