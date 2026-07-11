@@ -9,8 +9,7 @@
     dest: "{{ postgresql__data_dir }}"
     state: absent
 - name: bootstrap-replicas | Copy datas from master
-  ansible.builtin.command:
-    pg_basebackup -h {{ postgresql_replication__master_node_address }} -D {{ postgresql__data_dir }} -U {{ postgresql_replication__user
+  ansible.builtin.command: pg_basebackup -h {{ postgresql_replication__master_node_address }} -D {{ postgresql__data_dir }} -U {{ postgresql_replication__user
     }} --wal-method=stream
   args:
     creates: "{{ postgresql__data_dir }}"

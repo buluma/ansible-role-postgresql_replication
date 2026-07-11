@@ -1,7 +1,7 @@
 ---
 - hosts: all
   tasks:
-    - apt:
+    - ansible.builtin.apt:
         name:
           - gnupg
           - locales
