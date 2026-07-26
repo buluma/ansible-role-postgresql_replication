@@ -1,14 +1,17 @@
 ---
-- hosts: all
+- name: Install prerequisites
+  hosts: all
   tasks:
-    - ansible.builtin.apt:
+    - name: Install prerequisites
+      ansible.builtin.apt:
         name:
           - gnupg
           - locales
           - rsync
         state: present
         update_cache: true
-- hosts: all
+- name: Test postgresql_replication role
+  hosts: all
   roles:
     - postgresql__global_config_options:
         - option: listen_addresses
@@ -41,6 +44,6 @@
       postgresql__version: 11
       postgresql_replication__bootstrap: yesiwant
       postgresql_replication__walsegments: 8
-      role: ../../.
+      role: buluma.postgresql_replication
   vars:
     postgresql_replication__password: r3pl1c6t0r
