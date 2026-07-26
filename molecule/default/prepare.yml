@@ -23,6 +23,22 @@
       changed_when: false
       failed_when: false
 
+    - name: Install iproute if missing
+      # gather_facts (converge.yml) needs the "ip" command to populate
+      # ansible_facts['default_ipv4'] - our role's config-user.yml relies on
+      # that for the replication authorized_key's from= restriction, and
+      # this image doesn't ship it.
+      ansible.builtin.raw: >-
+        if command -v ip >/dev/null 2>&1; then exit 0; fi;
+        if command -v apt-get >/dev/null 2>&1; then apt-get update && apt-get install -y iproute2;
+        elif command -v dnf >/dev/null 2>&1; then dnf install -y iproute;
+        elif command -v yum >/dev/null 2>&1; then yum install -y iproute;
+        elif command -v zypper >/dev/null 2>&1; then zypper -n install iproute2;
+        else exit 1; fi
+      become: false
+      changed_when: false
+      failed_when: false
+
     - name: Configure passwordless sudo
       ansible.builtin.raw: >-
         if ! grep -q '^%wheel ALL=(ALL) NOPASSWD: ALL' /etc/sudoers; then
@@ -35,4 +51,3 @@
 
   roles:
     - role: buluma.bootstrap
-    - role: enix.postgresql

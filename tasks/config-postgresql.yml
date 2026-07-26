@@ -15,5 +15,5 @@
     owner: "{{ postgresql__user }}"
     src: replication.conf.j2
   notify:
-    - restart postgresql
+    - Restart postgresql
   # Separator for the pre-commit handler parser.

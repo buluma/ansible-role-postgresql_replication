@@ -2,44 +2,35 @@
 - name: Verify
   hosts: all
   become: true
-  gather_facts: true
-  roles:
-    - postgres_databases:
-        - name: test_db
-          state: present
-      postgres_hba_entries:
-        - database: all
-          method: peer
-          type: local
-          user: all
-        - address: 127.0.0.1/32
-          database: all
-          method: ident
-          type: host
-          user: all
-        - address: ::1/128
-          database: all
-          method: ident
-          type: host
-          user: all
-        - database: replication
-          method: peer
-          type: local
-          user: all
-        - address: 127.0.0.1/32
-          database: replication
-          method: ident
-          type: host
-          user: all
-        - address: ::1/128
-          database: replication
-          method: ident
-          type: host
-          user: all
-      postgres_users:
-        - name: test_user_with_pass
-          password: MyCoMpLeXpAsSwOrD
-        - db: test_db
-          name: test_user_with_db
-          password: MyCoMpLeXpAsSwOrD
-      role: buluma.postgres
+  gather_facts: false
+
+  tasks:
+    - name: Check PostgreSQL service is active
+      # Debian's postgresql.service is a oneshot meta-unit (SubState=exited
+      # once it's up, not "running"), so service_facts reports it as
+      # "stopped" even when it's genuinely active - check ActiveState via
+      # systemctl directly instead.
+      ansible.builtin.command: systemctl is-active postgresql
+      changed_when: false
+      register: postgresql_replication__service_state
+
+    - name: Assert PostgreSQL is active
+      ansible.builtin.assert:
+        that:
+          - postgresql_replication__service_state.stdout == 'active'
+        quiet: true
+
+    - name: Check recovery.conf on the replica
+      when: "'postgresql_replicas' in group_names"
+      ansible.builtin.stat:
+        # Matches enix.postgresql's postgresql__data_dir default for the
+        # postgresql__version: 11 pinned in converge.yml/prepare.yml.
+        path: /var/lib/postgresql/11/main/recovery.conf
+      register: postgresql_replication__recovery_conf
+
+    - name: Assert recovery.conf is present on the replica
+      when: "'postgresql_replicas' in group_names"
+      ansible.builtin.assert:
+        that:
+          - postgresql_replication__recovery_conf.stat.exists
+        quiet: true

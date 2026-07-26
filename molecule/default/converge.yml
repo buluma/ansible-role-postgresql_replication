@@ -3,5 +3,65 @@
   hosts: all
   become: true
   gather_facts: true
+  vars:
+    # Pinned to 11: this role's replication setup (wal_keep_segments,
+    # recovery.conf as the standby control file) predates PG12's removal of
+    # recovery.conf and PG13's removal of wal_keep_segments, so anything
+    # newer won't start.
+    postgresql__version: 11
+    postgresql_replication__bootstrap: "yesiwant"
+    # Computed per-host so master and replica each point at the other node,
+    # rather than a fixed global value.
+    postgresql_replication__other_nodes: "{{ groups[postgresql_replication__group] | difference([inventory_hostname]) }}"
+    postgresql_replication__master_node_address: "{{ hostvars[groups[postgresql_replication__group_master][0]]['ansible_default_ipv4']['address'] }}"
   roles:
+    # enix.postgresql has to run in the same play as our role, not in
+    # prepare.yml: its postgresql__* vars come from its own vars/main.yml,
+    # which only stays in scope for the rest of *this* play once the role
+    # is listed under roles: - a separate ansible-playbook run (prepare vs
+    # converge) doesn't carry that over, and our tasks need those vars.
+    - role: enix.postgresql
+      # locale_gen runs unconditionally on every OS family in this role, but
+      # community.general.locale_gen only supports Debian/Ubuntu (it
+      # hard-fails looking for /etc/locale.gen, which doesn't exist on
+      # RHEL/Fedora) and none of our test images ship "locales" anyway. We
+      # don't need generated locales for replication testing.
+      postgresql__locales: []
+      # Passed as a role param, not just the play var above: role
+      # vars/main.yml (which also defines postgresql__version: 14) outranks
+      # play vars in Ansible's precedence order, so the play-level value
+      # alone wouldn't actually override it here.
+      postgresql__version: 11
+      # Master needs to accept replication connections from the other node -
+      # default is localhost-only, which pg_basebackup on the replica can't
+      # reach.
+      postgresql__global_config_options:
+        - option: listen_addresses
+          value: "*"
+      postgresql__hba_entries:
+        - auth_method: peer
+          database: all
+          type: local
+          user: postgres
+        - auth_method: peer
+          database: all
+          type: local
+          user: all
+        - address: 0.0.0.0/0
+          auth_method: md5
+          database: all
+          type: host
+          user: all
+        - address: 0.0.0.0/0
+          auth_method: md5
+          database: replication
+          type: host
+          user: "{{ postgresql_replication__user }}"
+      # The replicate role itself - without this, our role's .pgpass /
+      # pg_basebackup calls have no matching database role to authenticate
+      # as.
+      postgresql__users:
+        - name: "{{ postgresql_replication__user }}"
+          password: "{{ postgresql_replication__password }}"
+          role_attr_flags: REPLICATION
     - role: buluma.postgresql_replication

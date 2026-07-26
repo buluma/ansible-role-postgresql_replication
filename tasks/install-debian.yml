@@ -1,5 +1,7 @@
 ---
-- name: "install-debian | Debian: Install rsync package"
+- name: "install-debian | Debian: Install rsync and openssh-client packages"
   ansible.builtin.apt:
-    name: rsync
+    name:
+      - rsync
+      - openssh-client
     state: present
