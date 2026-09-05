@@ -16,7 +16,67 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
   hosts: all
   become: true
   gather_facts: true
+  vars:
+    # Pinned to 11: this role's replication setup (wal_keep_segments,
+    # recovery.conf as the standby control file) predates PG12's removal of
+    # recovery.conf and PG13's removal of wal_keep_segments, so anything
+    # newer won't start.
+    postgresql__version: 11
+    postgresql_replication__bootstrap: "yesiwant"
+    # Computed per-host so master and replica each point at the other node,
+    # rather than a fixed global value.
+    postgresql_replication__other_nodes: "{{ groups[postgresql_replication__group] | difference([inventory_hostname]) }}"
+    postgresql_replication__master_node_address: "{{ hostvars[groups[postgresql_replication__group_master][0]]['ansible_default_ipv4']['address'] }}"
   roles:
+    # enix.postgresql has to run in the same play as our role, not in
+    # prepare.yml: its postgresql__* vars come from its own vars/main.yml,
+    # which only stays in scope for the rest of *this* play once the role
+    # is listed under roles: - a separate ansible-playbook run (prepare vs
+    # converge) doesn't carry that over, and our tasks need those vars.
+    - role: enix.postgresql
+      # locale_gen runs unconditionally on every OS family in this role, but
+      # community.general.locale_gen only supports Debian/Ubuntu (it
+      # hard-fails looking for /etc/locale.gen, which doesn't exist on
+      # RHEL/Fedora) and none of our test images ship "locales" anyway. We
+      # don't need generated locales for replication testing.
+      postgresql__locales: []
+      # Passed as a role param, not just the play var above: role
+      # vars/main.yml (which also defines postgresql__version: 14) outranks
+      # play vars in Ansible's precedence order, so the play-level value
+      # alone wouldn't actually override it here.
+      postgresql__version: 11
+      # Master needs to accept replication connections from the other node -
+      # default is localhost-only, which pg_basebackup on the replica can't
+      # reach.
+      postgresql__global_config_options:
+        - option: listen_addresses
+          value: "*"
+      postgresql__hba_entries:
+        - auth_method: peer
+          database: all
+          type: local
+          user: postgres
+        - auth_method: peer
+          database: all
+          type: local
+          user: all
+        - address: 0.0.0.0/0
+          auth_method: md5
+          database: all
+          type: host
+          user: all
+        - address: 0.0.0.0/0
+          auth_method: md5
+          database: replication
+          type: host
+          user: "{{ postgresql_replication__user }}"
+      # The replicate role itself - without this, our role's .pgpass /
+      # pg_basebackup calls have no matching database role to authenticate
+      # as.
+      postgresql__users:
+        - name: "{{ postgresql_replication__user }}"
+          password: "{{ postgresql_replication__password }}"
+          role_attr_flags: REPLICATION
     - role: buluma.postgresql_replication
 ```
 
@@ -48,6 +108,22 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
       changed_when: false
       failed_when: false
 
+    - name: Install iproute if missing
+      # gather_facts (converge.yml) needs the "ip" command to populate
+      # ansible_facts['default_ipv4'] - our role's config-user.yml relies on
+      # that for the replication authorized_key's from= restriction, and
+      # this image doesn't ship it.
+      ansible.builtin.raw: >-
+        if command -v ip >/dev/null 2>&1; then exit 0; fi;
+        if command -v apt-get >/dev/null 2>&1; then apt-get update && apt-get install -y iproute2;
+        elif command -v dnf >/dev/null 2>&1; then dnf install -y iproute;
+        elif command -v yum >/dev/null 2>&1; then yum install -y iproute;
+        elif command -v zypper >/dev/null 2>&1; then zypper -n install iproute2;
+        else exit 1; fi
+      become: false
+      changed_when: false
+      failed_when: false
+
     - name: Configure passwordless sudo
       ansible.builtin.raw: >-
         if ! grep -q '^%wheel ALL=(ALL) NOPASSWD: ALL' /etc/sudoers; then
@@ -60,7 +136,6 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
 
   roles:
     - role: buluma.bootstrap
-    - role: enix.postgresql
 ```
 
 Also see a [full explanation and example](https://buluma.github.io/how-to-use-these-roles.html) on how to use these roles.
@@ -109,10 +184,8 @@ This role has been tested on these [container images](https://hub.docker.com/u/b
 
 |container|tags|
 |---------|----|
-|[EL](https://hub.docker.com/r/buluma/docker-molecule-images)|10, 9|
-|[Debian](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
-|[Fedora](https://hub.docker.com/r/buluma/docker-molecule-images)|44, 43|
-|[Ubuntu](https://hub.docker.com/r/buluma/docker-molecule-images)|all|
+|[Debian](https://hub.docker.com/r/buluma/docker-molecule-images)|bookworm, trixie|
+|[Ubuntu](https://hub.docker.com/r/buluma/docker-molecule-images)|jammy|
 
 The minimum version of Ansible required is 2.12, tests have been done on:
 
