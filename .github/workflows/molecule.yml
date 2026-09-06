@@ -45,7 +45,9 @@ jobs:
       matrix:
         distro:
           - image: "docker-molecule-images"
-            tag: "debian11"
+            tag: "debian12"
+          - image: "docker-molecule-images"
+            tag: "debian13"
           - image: "docker-molecule-images"
             tag: "ubuntu2204"
     steps:
