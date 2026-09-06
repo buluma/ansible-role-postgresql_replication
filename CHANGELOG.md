@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- drop Debian 11 from CI matrix, add 12/13 \(SHA-178\) [\#19](https://github.com/buluma/ansible-role-postgresql_replication/pull/19) ([buluma](https://github.com/buluma))
 - Bump ansible/ansible-lint from 26.6.0 to 26.8.0 [\#18](https://github.com/buluma/ansible-role-postgresql_replication/pull/18) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [26.6.2](https://github.com/buluma/ansible-role-postgresql_replication/tree/26.6.2) (2026-07-26)
