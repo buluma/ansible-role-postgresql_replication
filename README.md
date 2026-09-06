@@ -168,7 +168,7 @@ The following roles are used to prepare a system. You can prepare your system in
 | Requirement | GitHub |
 |-------------|--------|
 |[buluma.bootstrap](https://galaxy.ansible.com/buluma/bootstrap)|[![Build Status GitHub](https://github.com/buluma/ansible-role-bootstrap/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/ansible-role-bootstrap/actions)|
-|[enix.postgresql](https://galaxy.ansible.com/buluma/enix.postgresql)|[![Build Status GitHub](https://github.com/buluma/enix.postgresql/workflows/Ansible%20Molecule/badge.svg)](https://github.com/buluma/enix.postgresql/actions)|
+|enix.postgresql (installed from [buluma/ansible-postgresql](https://github.com/buluma/ansible-postgresql), a fork replacing the removed `apt_key` module - see `requirements.yml`)|[buluma/ansible-postgresql](https://github.com/buluma/ansible-postgresql)|
 
 ## [Context](#context)
 
