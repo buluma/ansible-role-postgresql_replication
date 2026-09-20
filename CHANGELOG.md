@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/buluma/ansible-role-postgresql_replication/tree/HEAD)
+## [26.9.0](https://github.com/buluma/ansible-role-postgresql_replication/tree/26.9.0) (2026-09-06)
 
-[Full Changelog](https://github.com/buluma/ansible-role-postgresql_replication/compare/26.6.2...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-postgresql_replication/compare/26.6.2...26.9.0)
 
 **Merged pull requests:**
 
