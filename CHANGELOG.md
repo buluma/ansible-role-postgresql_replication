@@ -1,11 +1,12 @@
 # Changelog
 
-## [Unreleased](https://github.com/buluma/ansible-role-postgresql_replication/tree/HEAD)
+## [26.10.9](https://github.com/buluma/ansible-role-postgresql_replication/tree/26.10.9) (2026-10-05)
 
-[Full Changelog](https://github.com/buluma/ansible-role-postgresql_replication/compare/26.9.0...HEAD)
+[Full Changelog](https://github.com/buluma/ansible-role-postgresql_replication/compare/26.9.0...26.10.9)
 
 **Merged pull requests:**
 
+- Bump release-drafter/release-drafter from 7.7.0 to 7.9.0 [\#22](https://github.com/buluma/ansible-role-postgresql_replication/pull/22) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Enable native Dependabot auto-merge with required CI [\#21](https://github.com/buluma/ansible-role-postgresql_replication/pull/21) ([buluma](https://github.com/buluma))
 
 ## [26.9.0](https://github.com/buluma/ansible-role-postgresql_replication/tree/26.9.0) (2026-09-06)
