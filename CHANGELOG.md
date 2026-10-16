@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- Bump ansible/ansible-lint from 26.9.0 to 26.10.0 [\#24](https://github.com/buluma/ansible-role-postgresql_replication/pull/24) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump release-drafter/release-drafter from 7.9.0 to 7.10.0 [\#23](https://github.com/buluma/ansible-role-postgresql_replication/pull/23) ([dependabot[bot]](https://github.com/apps/dependabot))
 
 ## [26.10.9](https://github.com/buluma/ansible-role-postgresql_replication/tree/26.10.9) (2026-10-05)
