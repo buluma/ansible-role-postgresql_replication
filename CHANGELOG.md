@@ -6,6 +6,8 @@
 
 **Merged pull requests:**
 
+- ANS-70: Fix changelog workflow [\#28](https://github.com/buluma/ansible-role-postgresql_replication/pull/28) ([buluma](https://github.com/buluma))
+- Bump release-drafter/release-drafter from 7.10.0 to 7.11.0 [\#27](https://github.com/buluma/ansible-role-postgresql_replication/pull/27) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump ansible/ansible-lint from 26.10.1 to 26.11.0 [\#26](https://github.com/buluma/ansible-role-postgresql_replication/pull/26) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump ansible/ansible-lint from 26.10.0 to 26.10.1 [\#25](https://github.com/buluma/ansible-role-postgresql_replication/pull/25) ([dependabot[bot]](https://github.com/apps/dependabot))
 - Bump ansible/ansible-lint from 26.9.0 to 26.10.0 [\#24](https://github.com/buluma/ansible-role-postgresql_replication/pull/24) ([dependabot[bot]](https://github.com/apps/dependabot))
